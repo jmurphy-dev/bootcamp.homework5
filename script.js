@@ -1,4 +1,5 @@
 let date = moment().format("dddd MMMM Do");
+let isNow = false;
 
 $("#currentDay").text(date);
 
@@ -14,13 +15,26 @@ class timeBlock {
   constructor(currentTime, hour) {
     this.hour = hour;
     if(currentTime === hour) {
-        
+        isNow = true;
     }
+    this.isNow = isNow
   }
 }
 for (let i = 0; i < hour.length; i++) {
     const element = hour[i];
     let tB = new timeBlock(currentTime, hour[i])
     console.log(tB);
+    blockDrawer();
+    if(timeBlock.isNow) {
+        $(".row").addClass(".present");
+    } else if (Number(currentTime) > Number(hour[i])) {
+        $(".row").addClass(".past");
+    } else {
+        $(".row").addClass(".future");
+    }
 }
 
+
+function blockDrawer() {
+    $("#row").appendTo("#body");
+}
